@@ -1,5 +1,6 @@
 import pygame, sys, time
 from settings import *
+from sprites import *
 
 
 # basic OOP set up with the game class
@@ -13,6 +14,9 @@ class Game:
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Brick Breaker Simulator 3034")
         self.background = self.create_background()
+        # group set up 4 sprites
+        self.all_sprites = pygame.sprite.Group()
+        self.player = Player(self.all_sprites)
 
     # add background
     def create_background(self):
@@ -41,8 +45,13 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            self.display_surface.blit(self.background, (0, 0))
+            # updating game
+            self.all_sprites.update(dt)
+            self.player.player_constraint()
 
+            self.display_surface.blit(self.background, (0, 0))
+            # this is needed to draw sprite to screen frfr
+            self.all_sprites.draw(self.display_surface)
             # update window
             pygame.display.update()
 
