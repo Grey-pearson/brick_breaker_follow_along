@@ -1,4 +1,6 @@
 import pygame, sys, time
+
+from pygame.sprite import _Group
 from settings import *
 
 player_width = WINDOW_WIDTH // 10
@@ -34,6 +36,15 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
 
     def player_constraint(self):
+        if self.rect.right > WINDOW_WIDTH:
+            self.rect.right = WINDOW_WIDTH
+            self.pos.x = self.rect.x
+        if self.rect.left < 0:
+            self.rect.left = 0
+            self.pos.x = self.rect.x
+
+    # makes player wrap around the screen, its cool but i prefer full stop
+    def player_wrap(self):
         # left to right
         if self.pos.x <= -(player_width):
             self.pos.x += WINDOW_WIDTH + (player_width)
@@ -46,3 +57,12 @@ class Player(pygame.sprite.Sprite):
         self.pos.x += self.direction.x * self.speed * dt
         self.rect.x = round(self.pos.x)
         # print(self.pos.x) # only needed for testing
+
+
+class Ball(pygame.sprite.Sprite):
+    def __init__(self, groups, player):
+        super().__init__(groups)
+
+        # graphics set up
+        self.image = pygame.image.load("graphics/other.ball.png")
+        # 33min
