@@ -66,3 +66,6 @@ class Ball(pygame.sprite.Sprite):
         # graphics set up
         self.image = pygame.image.load("graphics/other.ball.png")
         # 33min
+
+
+# getting stuff set up
