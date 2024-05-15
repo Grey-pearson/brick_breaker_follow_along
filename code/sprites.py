@@ -1,6 +1,6 @@
 import pygame, sys, time
 
-from pygame.sprite import _Group
+# from pygame.sprite import _Group
 from settings import *
 
 player_width = WINDOW_WIDTH // 10
