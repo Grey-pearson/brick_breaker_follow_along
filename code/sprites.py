@@ -1,6 +1,5 @@
 import pygame, sys, time
-
-# from pygame.sprite import _Group
+from random import choice
 from settings import *
 
 player_width = WINDOW_WIDTH // 10
@@ -27,9 +26,9 @@ class Player(pygame.sprite.Sprite):
 
     def input(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT or pygame.K_d]:
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.direction.x = 1
-        elif keys[pygame.K_LEFT or pygame.K_a]:
+        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.direction.x = -1
         # idk if this else is nessesary
         else:
@@ -62,10 +61,34 @@ class Player(pygame.sprite.Sprite):
 class Ball(pygame.sprite.Sprite):
     def __init__(self, groups, player):
         super().__init__(groups)
+        # ball will need to be active or passive
+
+        # for collisions
+        self.player = player
 
         # graphics set up
-        self.image = pygame.image.load("graphics/other.ball.png")
-        # 33min
+        self.image = pygame.image.load("graphics/other/ball.png").convert_alpha()
 
+        # position
+        self.rect = self.image.get_rect(midbottom=(player.rect.midtop))
+        self.pos = pygame.math.Vector2(self.rect.topleft)
+        self.direction = pygame.math.Vector2((choice((1, -1)), -1))
+        self.speed = 400
 
-# getting stuff set up
+        # making ball active
+        self.active = False
+
+    # space to launch ball
+    def input(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_DOWN] or keys[pygame.K_SPACE]:
+            self.active = True
+
+    def update(self, dt):
+        self.input()
+        if self.active:
+            self.pos += self.direction * self.speed * dt
+            self.rect.topleft = (round(self.pos.x), round(self.pos.y))
+        else:
+            self.rect.midbottom = self.player.rect.midtop
+            self.pos = pygame.math.Vector2(self.rect.topleft)

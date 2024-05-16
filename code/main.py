@@ -1,6 +1,6 @@
 import pygame, sys, time
 from settings import *
-from sprites import *
+from sprites import Player, Ball
 
 
 # basic OOP set up with the game class
@@ -17,6 +17,7 @@ class Game:
         # group set up 4 sprites
         self.all_sprites = pygame.sprite.Group()
         self.player = Player(self.all_sprites)
+        self.ball = Ball(self.all_sprites, self.player)
 
     # add background
     def create_background(self):
