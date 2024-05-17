@@ -86,10 +86,25 @@ class Ball(pygame.sprite.Sprite):
 
     def window_collision(self, direction):
         if direction == "horizontal":
+            if self.rect.right < 0:
+                self.rect.left = 0
+                self.pos.x = self.rect.x
+                self.direction.x *= -1
+
             if self.rect.right > WINDOW_WIDTH:
-                self.
+                self.rect.right = WINDOW_WIDTH
+                self.pos.x = self.rect.x
+                self.direction.x *= -1
         if direction == "vertical":
-            pass
+            if self.rect.top < 0:
+                self.rect.top = 0
+                self.pos.y = self.rect.y
+                self.direction.y *= -1
+
+            if self.rect.bottom > WINDOW_HEIGHT:
+                self.rect.bottom = WINDOW_HEIGHT
+                self.pos.y = self.rect.y
+                self.direction.y *= -1
 
     def collision(self):
         pass
@@ -100,13 +115,14 @@ class Ball(pygame.sprite.Sprite):
             # normalize direction, make ball go same speed no matter angle
             if self.direction.magnitude() != 0:
                 self.direction = self.direction.normalize()
-            self.pos += self.direction.x * self.speed * dt
+            self.pos.x += self.direction.x * self.speed * dt
             self.rect.x = round(self.pos.x)
             self.window_collision("horizontal")
 
-            self.pos += self.direction.y * self.speed * dt
+            self.pos.y += self.direction.y * self.speed * dt
             self.rect.y = round(self.pos.y)
             self.window_collision("vertical")
         else:
             self.rect.midbottom = self.player.rect.midtop
             self.pos = pygame.math.Vector2(self.rect.topleft)
+        print(self.pos)
