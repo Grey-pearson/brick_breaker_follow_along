@@ -68,7 +68,7 @@ class Ball(pygame.sprite.Sprite):
 
         # graphics set up
         self.image = pygame.image.load("graphics/other/ball.png").convert_alpha()
-
+        self.old_rect = self.rect.copy()
         # position
         self.rect = self.image.get_rect(midbottom=(player.rect.midtop))
         self.pos = pygame.math.Vector2(self.rect.topleft)
@@ -110,7 +110,15 @@ class Ball(pygame.sprite.Sprite):
                 # self.direction.y *= -1
 
     def collision(self, direction):
-        pass
+        overlap_sprites = []
+        if self.rect.colliderect(self.palyer.rect):
+            overlap_sprites.append(self.player)
+        
+        if overlap_sprites:
+            if direction == 'horizontal':
+                for sprite in overlap_sprites:
+                    if self.rect.right >= sprite.rect.left and self.old_rect.right <= sprite.old_rect.left:
+                    # 1:04:00
 
     def update(self, dt):
         self.input()
@@ -118,6 +126,10 @@ class Ball(pygame.sprite.Sprite):
             # normalize direction, make ball go same speed no matter angle
             if self.direction.magnitude() != 0:
                 self.direction = self.direction.normalize()
+
+            # create old rect
+            self.old_rect = self.rect.copy()
+
             # horizontal collision
             self.pos.x += self.direction.x * self.speed * dt
             self.rect.x = round(self.pos.x)
