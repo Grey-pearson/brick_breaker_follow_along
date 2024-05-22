@@ -18,6 +18,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(
             midbottom=(WINDOW_WIDTH // 2, WINDOW_HEIGHT - 20)
         )
+        self.old_rect = self.rect.copy()
+
         # for input
         self.direction = pygame.math.Vector2()
         # for update
@@ -68,9 +70,9 @@ class Ball(pygame.sprite.Sprite):
 
         # graphics set up
         self.image = pygame.image.load("graphics/other/ball.png").convert_alpha()
-        self.old_rect = self.rect.copy()
         # position
-        self.rect = self.image.get_rect(midbottom=(player.rect.midtop))
+        self.rect = self.image.get_rect(midbottom=player.rect.midtop)
+        self.old_rect = self.rect.copy()
         self.pos = pygame.math.Vector2(self.rect.topleft)
         self.direction = pygame.math.Vector2((choice((1, -1)), -1))
         self.speed = 400
@@ -111,14 +113,48 @@ class Ball(pygame.sprite.Sprite):
 
     def collision(self, direction):
         overlap_sprites = []
-        if self.rect.colliderect(self.palyer.rect):
+        if self.rect.colliderect(self.player.rect):
             overlap_sprites.append(self.player)
-        
+        # right and left
         if overlap_sprites:
-            if direction == 'horizontal':
+            if direction == "horizontal":
                 for sprite in overlap_sprites:
-                    if self.rect.right >= sprite.rect.left and self.old_rect.right <= sprite.old_rect.left:
-                    # 1:04:00
+                    # right of self
+                    if (
+                        self.rect.right >= sprite.rect.left
+                        and self.old_rect.right <= sprite.old_rect.left
+                    ):
+                        # 1:04:00
+                        self.rect.right = sprite.rect.left
+                        self.pos.x = self.rect.x
+                        self.direction.x *= -1
+                    # left of self
+                    if (
+                        self.rect.left <= sprite.rect.right
+                        and self.old_rect.left >= sprite.old_rect.right
+                    ):
+                        self.rect.left = sprite.rect.right
+                        self.pos.x = self.rect.x
+                        self.direction.y *= -1
+
+            if direction == "vertical":
+                for sprite in overlap_sprites:
+                    # top of self
+                    if (
+                        self.rect.top <= sprite.rect.bottom
+                        and self.old_rect.top >= sprite.old_rect.bottom
+                    ):
+                        self.rect.top = sprite.rect.bottom
+                        self.pos.y = self.rect.y
+                        self.direction.y *= -1
+                    # bottom of self
+                    if (
+                        self.rect.bottom >= sprite.rect.top
+                        and self.old_rect.bottom <= sprite.old_rect.top
+                    ):
+                        self.rect.bottom = sprite.rect.top
+                        self.pos.y = self.rect.y
+                        self.direction.y *= -1
 
     def update(self, dt):
         self.input()
@@ -135,11 +171,13 @@ class Ball(pygame.sprite.Sprite):
             self.rect.x = round(self.pos.x)
             self.collision("horizontal")
             self.window_collision("horizontal")
+            self.collision("horizontal")
             # vertiacal collision
             self.pos.y += self.direction.y * self.speed * dt
             self.rect.y = round(self.pos.y)
             self.collision("vertical")
             self.window_collision("vertical")
+            self.collision("vertical")
         else:
             self.rect.midbottom = self.player.rect.midtop
             self.pos = pygame.math.Vector2(self.rect.topleft)
