@@ -124,7 +124,6 @@ class Ball(pygame.sprite.Sprite):
                         self.rect.right >= sprite.rect.left
                         and self.old_rect.right <= sprite.old_rect.left
                     ):
-                        # 1:04:00
                         self.rect.right = sprite.rect.left
                         self.pos.x = self.rect.x
                         self.direction.x *= -1
@@ -182,3 +181,6 @@ class Ball(pygame.sprite.Sprite):
             self.rect.midbottom = self.player.rect.midtop
             self.pos = pygame.math.Vector2(self.rect.topleft)
         # print(self.pos)
+
+
+class 
