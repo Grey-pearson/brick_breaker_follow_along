@@ -32,6 +32,11 @@ class Game:
         )
         return scaled_background
 
+    def screen_setup(self):
+        # loop through all rows and cols of block map
+        # find x and y position for all blocks
+        pass
+
     def run(self):
         last_time = time.time()
         while True:
