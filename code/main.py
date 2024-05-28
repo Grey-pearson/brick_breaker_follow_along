@@ -1,6 +1,6 @@
 import pygame, sys, time
 from settings import *
-from sprites import Player, Ball
+from sprites import Player, Ball, Block
 
 
 # basic OOP set up with the game class
@@ -43,7 +43,7 @@ class Game:
                 # center blocks on X axis
                 x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
                 # print(f"{y} | {x}")
-                # Block(type,pos,groups)
+                Block(col, (x, y), [self.all_sprites])
 
     def run(self):
         last_time = time.time()
