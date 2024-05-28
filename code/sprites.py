@@ -1,5 +1,7 @@
 import pygame, sys, time
 from random import choice
+
+from pygame.sprite import _Group
 from settings import *
 
 player_width = WINDOW_WIDTH // 10
@@ -183,4 +185,8 @@ class Ball(pygame.sprite.Sprite):
         # print(self.pos)
 
 
-# class
+class Block(pygame.sprite.Sprite):
+    def __init__(self, block_type, pos, groups):
+        super().__init__(groups)
+        self.image = pygame.Surface((BLOCK_HEIGHT, BLOCK_WIDTH))
+        self.rect = self.image.get_rect(topleft=pos)
