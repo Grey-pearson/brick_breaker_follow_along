@@ -37,8 +37,12 @@ class Game:
         # loop through all rows and cols of block map
         # find x and y position for all blocks
         for row_index, row in enumerate(BLOCK_MAP):
-            y = row_index * (BLOCK_HEIGHT + GAP_SIZE)
-            # x = row[???] * (BLOCK_WIDTH + GAP_SIZE)
+            for col_index, col in enumerate(row):
+                # to center block on Y axis
+                y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
+                # center blocks on X axis
+                x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
+                print(f"{y} | {x}")
 
     def run(self):
         last_time = time.time()
