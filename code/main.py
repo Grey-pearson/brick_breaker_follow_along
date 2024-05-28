@@ -36,7 +36,8 @@ class Game:
     def screen_setup(self):
         # loop through all rows and cols of block map
         # find x and y position for all blocks
-        for row in BLOCK_MAP:
+        for row_index, row in enumerate(BLOCK_MAP):
+            print(row_index)
             print(row)
 
     def run(self):
