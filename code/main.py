@@ -38,12 +38,13 @@ class Game:
         # find x and y position for all blocks
         for row_index, row in enumerate(BLOCK_MAP):
             for col_index, col in enumerate(row):
-                # to center block on Y axis
-                y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
-                # center blocks on X axis
-                x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
-                # print(f"{y} | {x}")
-                Block(col, (x, y), [self.all_sprites])
+                if col != " ":
+                    # to center block on Y axis
+                    y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
+                    # center blocks on X axis
+                    x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
+                    # print(f"{y} | {x}")
+                    Block(col, (x, y), [self.all_sprites])
 
     def run(self):
         last_time = time.time()
