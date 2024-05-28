@@ -18,6 +18,7 @@ class Game:
         self.all_sprites = pygame.sprite.Group()
         self.player = Player(self.all_sprites)
         self.ball = Ball(self.all_sprites, self.player)
+        self.screen_setup()
 
     # add background
     def create_background(self):
@@ -35,7 +36,8 @@ class Game:
     def screen_setup(self):
         # loop through all rows and cols of block map
         # find x and y position for all blocks
-        pass
+        for row in BLOCK_MAP:
+            print(row)
 
     def run(self):
         last_time = time.time()
