@@ -37,8 +37,8 @@ class Game:
         # loop through all rows and cols of block map
         # find x and y position for all blocks
         for row_index, row in enumerate(BLOCK_MAP):
-            print(row_index)
-            print(row)
+            y = row_index * BLOCK_HEIGHT
+            x = 
 
     def run(self):
         last_time = time.time()
