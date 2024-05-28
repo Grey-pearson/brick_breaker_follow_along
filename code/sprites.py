@@ -183,4 +183,4 @@ class Ball(pygame.sprite.Sprite):
         # print(self.pos)
 
 
-class 
+# class
