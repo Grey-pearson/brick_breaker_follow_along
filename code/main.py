@@ -16,9 +16,11 @@ class Game:
         self.background = self.create_background()
         # group set up 4 sprites
         self.all_sprites = pygame.sprite.Group()
+        self.block_sprites = pygame.sprite.Group()
+
         self.player = Player(self.all_sprites)
-        self.ball = Ball(self.all_sprites, self.player)
         self.screen_setup()
+        self.ball = Ball(self.all_sprites, self.player, self.block_sprites)
 
     # add background
     def create_background(self):
@@ -44,7 +46,7 @@ class Game:
                     # center blocks on X axis
                     x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
                     # print(f"{y} | {x}")
-                    Block(col, (x, y), [self.all_sprites])
+                    Block(col, (x, y), [self.all_sprites, self.block_sprites])
 
     def run(self):
         last_time = time.time()
