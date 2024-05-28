@@ -42,7 +42,8 @@ class Game:
                 y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
                 # center blocks on X axis
                 x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
-                print(f"{y} | {x}")
+                # print(f"{y} | {x}")
+                # Block(type,pos,groups)
 
     def run(self):
         last_time = time.time()
