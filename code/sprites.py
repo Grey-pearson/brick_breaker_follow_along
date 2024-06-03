@@ -135,7 +135,7 @@ class Ball(pygame.sprite.Sprite):
                     ):
                         self.rect.left = sprite.rect.right + 1
                         self.pos.x = self.rect.x
-                        self.direction.y *= -1
+                        self.direction.x *= -1
 
                     if getattr(sprite, "health", None):
                         sprite.get_damage(1)
