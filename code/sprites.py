@@ -138,7 +138,7 @@ class Ball(pygame.sprite.Sprite):
                         self.direction.y *= -1
 
                     if getattr(sprite, "health", None):
-                        sprite.get_damgae(1)
+                        sprite.get_damage(1)
 
             if direction == "vertical":
                 for sprite in overlap_sprites:
