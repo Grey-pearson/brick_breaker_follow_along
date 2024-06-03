@@ -160,7 +160,7 @@ class Ball(pygame.sprite.Sprite):
                         self.direction.y *= -1
 
                     if getattr(sprite, "health", None):
-                        sprite.get_damgae(1)
+                        sprite.get_damage(1)
 
     def update(self, dt):
         self.input()
