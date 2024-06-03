@@ -61,7 +61,7 @@ class Player(pygame.sprite.Sprite):
 
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, groups, player):
+    def __init__(self, groups, player, blocks):
         super().__init__(groups)
         # ball will need to be active or passive
 
