@@ -67,6 +67,7 @@ class Ball(pygame.sprite.Sprite):
 
         # for collisions
         self.player = player
+        self.blocks = blocks
 
         # graphics set up
         self.image = pygame.image.load("graphics/other/ball.png").convert_alpha()
@@ -112,7 +113,7 @@ class Ball(pygame.sprite.Sprite):
                 # self.direction.y *= -1
 
     def collision(self, direction):
-        overlap_sprites = []
+        overlap_sprites = pygame.sprite.spritecollide(self, self.blocks, False)
         if self.rect.colliderect(self.player.rect):
             overlap_sprites.append(self.player)
         # right and left
