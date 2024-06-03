@@ -189,3 +189,4 @@ class Block(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = pygame.Surface((BLOCK_WIDTH, BLOCK_HEIGHT))
         self.rect = self.image.get_rect(topleft=pos)
+        self.old_rect = self.rect.copy()
