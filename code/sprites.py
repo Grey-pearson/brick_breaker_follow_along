@@ -137,6 +137,9 @@ class Ball(pygame.sprite.Sprite):
                         self.pos.x = self.rect.x
                         self.direction.y *= -1
 
+                    if getattr(sprite, "health", None):
+                        sprite.get_damgae(1)
+
             if direction == "vertical":
                 for sprite in overlap_sprites:
                     # top of self
@@ -155,6 +158,9 @@ class Ball(pygame.sprite.Sprite):
                         self.rect.bottom = sprite.rect.top - 1
                         self.pos.y = self.rect.y
                         self.direction.y *= -1
+
+                    if getattr(sprite, "health", None):
+                        sprite.get_damgae(1)
 
     def update(self, dt):
         self.input()
@@ -190,3 +196,14 @@ class Block(pygame.sprite.Sprite):
         self.image = pygame.Surface((BLOCK_WIDTH, BLOCK_HEIGHT))
         self.rect = self.image.get_rect(topleft=pos)
         self.old_rect = self.rect.copy()
+
+        # damage info
+        self.health = int(block_type)
+
+    def get_damage(self, amount):
+        self.health -= amount
+
+        if self.health > 0:
+            pass
+        else:
+            self.kill()
