@@ -194,13 +194,13 @@ class Block(pygame.sprite.Sprite):
     def __init__(self, block_type, pos, groups):
         super().__init__(groups)
         self.image = pygame.Surface((BLOCK_WIDTH, BLOCK_HEIGHT))
+        # self.image.fill(COLOR_LEGEND[BLOCK_MAP[]])
         self.rect = self.image.get_rect(topleft=pos)
         self.old_rect = self.rect.copy()
 
         # damage info
         self.health = int(block_type)
         # color; match color with the number on block_type
-        self.image.fill("teal")
 
     def get_damage(self, amount):
         self.health -= amount
