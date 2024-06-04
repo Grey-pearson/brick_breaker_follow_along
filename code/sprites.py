@@ -199,6 +199,8 @@ class Block(pygame.sprite.Sprite):
 
         # damage info
         self.health = int(block_type)
+        # color; match color with the number on block_type
+        self.image.fill("teal")
 
     def get_damage(self, amount):
         self.health -= amount
